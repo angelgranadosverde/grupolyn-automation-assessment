@@ -21,6 +21,7 @@ This was verified end-to-end against the real template: first-time admin code se
 | `src/Code.gs` | Menu, document-scoped auth + email allow-list + audit log, and the full report engine |
 | `src/Deploy.gs` | Mass deployment — Strategy A (proven) + Strategy B (labeled experimental design sketch) |
 | `src/appsscript.json` | Manifest — OAuth scopes, V8 runtime |
+| `tests/logic.test.js` | Standalone Node tests for the two pure-logic helpers (`toNumber_`, `isTotalRowFor_`) — `node tests/logic.test.js` |
 
 ---
 

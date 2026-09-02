@@ -365,7 +365,14 @@ function runMonthlyComparativeReport() {
   var ITEM_DESC_COL = 2;  // Column C
   var BUDGET_COL    = 3;  // Column D
   var ACTUAL_COL    = 5;  // Column F
-  var START_ROW     = 5;
+  // Rows 1–6 are the sheet's own title/date/column-header block (row 5 is
+  // literally "Monthly Budget" in the category column and "Budget"/"Actual"
+  // in the amount columns) — starting there instead of at the real data
+  // misreads those header cells as a category and two unparseable amounts.
+  // Row 7 ("Income", column A only) is harmless to include and keeps this
+  // aligned with the template's own section boundary rather than hardcoding
+  // the first category row directly.
+  var START_ROW     = 7;
 
   var data              = sheet.getDataRange().getValues();
   var allCategoriesData = {};
@@ -417,7 +424,7 @@ function runMonthlyComparativeReport() {
     var row = data[i];
     var categoryHeader  = (row[CATEGORY_COL] != null) ? String(row[CATEGORY_COL]).trim() : '';
     var itemDescription = (row[ITEM_DESC_COL] != null) ? String(row[ITEM_DESC_COL]).trim() : '';
-    var budgetValue = toNumber_(row[BUDGET_COL], parseWarnings, 'B' + (i + 1) + '/D' + (i + 1));
+    var budgetValue = toNumber_(row[BUDGET_COL], parseWarnings, 'D' + (i + 1));
     var actualValue = toNumber_(row[ACTUAL_COL], parseWarnings, 'F' + (i + 1));
     var isTotalRow = isTotalRowFor_(categoryHeader, currentCategoryName);
 
